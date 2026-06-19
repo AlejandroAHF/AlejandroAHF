@@ -9,8 +9,6 @@ Soy un desarrollador de software enfocado en la construcción de aplicaciones we
 - **Enfoque Práctico (Learning by Doing):** Mi forma de aprender es construyendo. Enfrento los retos técnicos investigando la mejor solución arquitectónica, balanceando la legibilidad del código y el rendimiento.
 - **Sensibilidad UI/UX:** No solo escribo código funcional; busco que las interfaces sean intuitivas y ofrezcan una buena experiencia al usuario final.
 
----
-
 ## Proyectos y Aprendizaje Continuo
 
 Actualmente me encuentro profundizando en:
@@ -19,10 +17,10 @@ Actualmente me encuentro profundizando en:
 - construcción de APIs con Node.js 
 - Patrones de diseño de software y arquitecturas limpias en Laravel y Next.js.
 
-###
+---
 
 <div align="center">
-## Mi Stack Tecnológico
+  <h2>Mi Stack Tecnológico</h2>
   <img src="https://skillicons.dev/icons?i=nextjs" height="60" alt="nextjs logo"  />
   <img width="12" />
   <img src="https://skillicons.dev/icons?i=react" height="60" alt="typescript logo"  />
