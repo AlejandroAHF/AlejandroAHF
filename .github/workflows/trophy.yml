@@ -1,14 +1,12 @@
 name: Generate trophy card
 
 on:
-  schedule: # execute every 12 hours
-    - cron: "* */12 * * *"
-
+  schedule: # Ejecuta cada 12 horas
+    - cron: "0 */12 * * *" # CORRECCIÓN UX/RENDIMIENTO: Se cambió el primer asterisco por 0 para evitar que corra cada minuto durante la hora 12.
   workflow_dispatch:
-
   push:
     branches:
-    - main
+      - main
 
 jobs:
   generate:
@@ -18,10 +16,15 @@ jobs:
     timeout-minutes: 5
 
     steps:
+      # CORRECCIÓN CRÍTICA: Inicializa el repositorio y el espacio de trabajo en el runner
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Genera el archivo SVG en la ruta local del runner
       - name: generate trophy.svg
         uses: Erik-Donath/github-profile-trophy@feature/generate-svg
         with:
-          username: ${{ github.AlejandroAHF }}
+          username: ${{ github.repository_owner }} # CORRECCIÓN CRÍTICA: Sintaxis correcta para obtener tu usuario de manera dinámica
           file: dist/trophy.svg
           token: ${{ secrets.GITHUB_TOKEN }}
           theme: dracula
@@ -31,6 +34,7 @@ jobs:
           no-background: false
           no-frame: false
 
+      # Publica la carpeta 'dist' en la rama 'trophy-output'
       - name: push trophy.svg to the output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:

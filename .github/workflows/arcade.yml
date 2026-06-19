@@ -1,14 +1,12 @@
 name: Generate arcade animation
 
 on:
-  schedule: # execute every 12 hours
-    - cron: "* */12 * * *"
-
+  schedule: # Ejecuta cada 12 horas
+    - cron: "0 */12 * * *" # CORRECCIÓN: Evita la ejecución por minuto configurando el inicio en el minuto 0
   workflow_dispatch:
-
   push:
     branches:
-    - main
+      - main
 
 jobs:
   generate:
@@ -18,17 +16,22 @@ jobs:
     timeout-minutes: 20
 
     steps:
+      # CORRECCIÓN CRÍTICA: Descarga el repositorio para que el runner tenga un entorno de trabajo activo
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Genera la animación de Pacman basándose en tus contribuciones
       - name: generate pacman-contribution-graph.svg
         uses: abozanona/pacman-contribution-graph@main
         with:
-          github_user_name: ${{ github.AlejandroAHF }}
+          github_user_name: ${{ github.repository_owner }} # CORRECCIÓN CRÍTICA: Sintaxis corregida dinámicamente
           games: 'pacman'
 
-
+      # Publica el SVG generado (ubicado por defecto en la carpeta dist) hacia la rama destino
       - name: push pacman-contribution-graph.svg to the output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: pacman-output
-          build_dir: dist
+          build_dir: dist # Asegúrate de que la acción de pacman guarde por defecto en 'dist'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
